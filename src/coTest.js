@@ -1,3 +1,6 @@
+const {map, eq, set, includes} = require('lodash');
+const {FULL_COVERAGE, SPECIAL_FULL_COVERAGE, MEGA_COVERAGE, SUPER_SALE} = require('../config/constants');
+
 class Product {
   constructor(name, sellIn, price) {
     this.name = name;
@@ -6,59 +9,42 @@ class Product {
   }
 }
 
+const priceWhenProductIsSpecialFullCoverage = product => {
+  if(includes([6,7,8,9,10], product.sellIn)) {
+    return product.price + 2;
+  } else if(includes([1,2,3,4,5], product.sellIn)) {
+    return product.price + 3;
+  } else if(eq(product.sellIn, 0)) {
+    return 0;
+  }
+};
+const updateSellInOfProduct = (product, newSellIn) => set(product, 'sellIn', newSellIn);
+const updatePriceOfProduct = (product, newPrice) => set(product, 'price', newPrice >= 0 && newPrice <= 50 ? newPrice : product.price);
+const expirationDateHasPassed = sellIn => eq(sellIn, 0) || sellIn < 0;
+const discountPriceOtherProducts = ({sellIn}) => expirationDateHasPassed(sellIn) ? 2 : 1;
+
 class CarInsurance {
   constructor(products = []) {
     this.products = products;
   }
   updatePrice() {
-    for (var i = 0; i < this.products.length; i++) {
-      if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
-        if (this.products[i].price > 0) {
-          if (this.products[i].name != 'Mega Coverage') {
-            this.products[i].price = this.products[i].price - 1;
-          }
-        }
-      } else {
-        if (this.products[i].price < 50) {
-          this.products[i].price = this.products[i].price + 1;
-          if (this.products[i].name == 'Special Full Coverage') {
-            if (this.products[i].sellIn < 11) {
-              if (this.products[i].price < 50) {
-                this.products[i].price = this.products[i].price + 1;
-              }
-            }
-            if (this.products[i].sellIn < 6) {
-              if (this.products[i].price < 50) {
-                this.products[i].price = this.products[i].price + 1;
-              }
-            }
-          }
-        }
-      }
-      if (this.products[i].name != 'Mega Coverage') {
-        this.products[i].sellIn = this.products[i].sellIn - 1;
-      }
-      if (this.products[i].sellIn < 0) {
-        if (this.products[i].name != 'Full Coverage') {
-          if (this.products[i].name != 'Special Full Coverage') {
-            if (this.products[i].price > 0) {
-              if (this.products[i].name != 'Mega Coverage') {
-                this.products[i].price = this.products[i].price - 1;
-              }
-            }
-          } else {
-            this.products[i].price = this.products[i].price - this.products[i].price;
-          }
+    map(this.products, product => {
+      if(!eq(product.name, MEGA_COVERAGE)) {
+        if(eq(product.name, FULL_COVERAGE)) {
+          updatePriceOfProduct(product, product.price + 1);
+        } else if(eq(product.name, SPECIAL_FULL_COVERAGE)) {
+          updatePriceOfProduct(product, priceWhenProductIsSpecialFullCoverage(product));
+          
+        } else if(eq(product.name, SUPER_SALE)) {
+          updatePriceOfProduct(product, product.price - 4);
         } else {
-          if (this.products[i].price < 50) {
-            this.products[i].price = this.products[i].price + 1;
-          }
+          updatePriceOfProduct(product, product.price - discountPriceOtherProducts(product));
         }
+        updateSellInOfProduct(product, product.sellIn - 1);
       }
-    }
-
+    });
     return this.products;
-  }
+  };
 }
 
 module.exports = {
