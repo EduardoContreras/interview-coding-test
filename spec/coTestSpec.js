@@ -2,7 +2,8 @@ const expect = require('chai').expect;
 const {head} = require('lodash');
 
 const {FULL_COVERAGE, MEGA_COVERAGE, SPECIAL_FULL_COVERAGE, SUPER_SALE, OTHER_PRODUCT} = require('../config/constants');
-const {CarInsurance, Product} = require('../src/coTest');
+const {Product} = require('../src/class/product');
+const {CarInsurance} = require('../src/class/carInsurance');
 
 describe("Co Test", () => {
   
@@ -99,6 +100,14 @@ describe("Co Test", () => {
       const coTest = new CarInsurance([new Product(MEGA_COVERAGE, 1, 2)]);
       const products = coTest.updatePrice();
       expect(head(products).sellIn).equal(1);
+    });
+  });
+
+  describe('Only for coverage in test file', () => {
+    it('should update zero products, because are zero items created', () => {
+      const coTest = new CarInsurance();
+      const products = coTest.updatePrice();
+      expect(products.length).equal(0);
     });
   });
 });
