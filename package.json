@@ -4,8 +4,8 @@
   "description": "ComparaOnline Software Engineer Test",
   "main": "index.js",
   "scripts": {
-    "test": "mocha spec/*.js",
-    "coverage": "nyc npm run test",
+    "test": "nyc mocha spec/*.js",
+    "coverage": "npm run test",
     "cover:report": "npm run coverage && nyc report --reporter=html"
   },
   "repository": {
