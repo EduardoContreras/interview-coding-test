@@ -41,7 +41,7 @@ describe("Co Test", () => {
     });
   });
 
-  describe('When product is "MEga Coverage"', () => {
+  describe('When product is "Mega Coverage"', () => {
     it('should validate that price never change, when product is "Mega Coverage"', () => {
       const coTest = new CarInsurance([new Product(MEGA_COVERAGE, 0, 80)]);
       const products = coTest.updatePrice();
@@ -64,6 +64,11 @@ describe("Co Test", () => {
       const coTest = new CarInsurance([new Product(SPECIAL_FULL_COVERAGE, 0, 7)]);
       const products = coTest.updatePrice();
       expect(head(products).price).equal(0);
+    });
+    it('should validate that price do not change when have more 10 days', () => {
+      const coTest = new CarInsurance([new Product(SPECIAL_FULL_COVERAGE, 11, 7)]);
+      const products = coTest.updatePrice();
+      expect(head(products).price).equal(7);
     });
   });
 

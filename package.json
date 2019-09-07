@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "nyc mocha spec/**/*.js --exit --recursive",
+    "test": "nyc mocha spec/**/*.js",
     "coverage": "npm run test",
     "cover:report": "npm run coverage && nyc report --reporter=html",
     "after-30-days": "node src/scripts/productsAfterThirtyDays.js"

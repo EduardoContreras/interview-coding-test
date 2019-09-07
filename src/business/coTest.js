@@ -12,10 +12,10 @@ const priceWhenProductIsSpecialFullCoverage = product => {
     return product.price + 3;
   } else if(eq(product.sellIn, 0)) {
     return 0;
-  }
+  } else { return product.price; }
 };
 
-const updatePriceProducts = products => {
+const updatePriceProducts = products =>
   map(products, product => {
     if(!eq(product.name, MEGA_COVERAGE)) {
       if(eq(product.name, FULL_COVERAGE)) {
@@ -30,8 +30,6 @@ const updatePriceProducts = products => {
       updateSellInOfProduct(product, product.sellIn - 1);
     }
   });
-  return products;
-};
 
 module.exports = {
   updatePriceProducts
