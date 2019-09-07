@@ -1,9 +1,9 @@
 const expect = require('chai').expect;
 const {head} = require('lodash');
 
-const {FULL_COVERAGE, MEGA_COVERAGE, SPECIAL_FULL_COVERAGE, SUPER_SALE, OTHER_PRODUCT} = require('../config/constants');
-const {Product} = require('../src/class/product');
-const {CarInsurance} = require('../src/class/carInsurance');
+const {FULL_COVERAGE, MEGA_COVERAGE, SPECIAL_FULL_COVERAGE, SUPER_SALE, OTHER_PRODUCT} = require('../../config/constants');
+const {Product} = require('../../src/class/product');
+const {CarInsurance} = require('../../src/class/carInsurance');
 
 describe("Co Test", () => {
   

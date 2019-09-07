@@ -1,5 +1,5 @@
 const {map, eq, set, includes} = require('lodash');
-const {FULL_COVERAGE, SPECIAL_FULL_COVERAGE, MEGA_COVERAGE, SUPER_SALE} = require('../config/constants');
+const {FULL_COVERAGE, SPECIAL_FULL_COVERAGE, MEGA_COVERAGE, SUPER_SALE} = require('../../config/constants');
 
 const updateSellInOfProduct = (product, newSellIn) => set(product, 'sellIn', newSellIn);
 const updatePriceOfProduct = (product, newPrice) => set(product, 'price', newPrice >= 0 && newPrice <= 50 ? newPrice : product.price);

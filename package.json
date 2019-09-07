@@ -4,9 +4,11 @@
   "description": "ComparaOnline Software Engineer Test",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha spec/*.js",
+    "lint": "eslint .",
+    "test": "nyc mocha spec/**/*.js --exit --recursive",
     "coverage": "npm run test",
-    "cover:report": "npm run coverage && nyc report --reporter=html"
+    "cover:report": "npm run coverage && nyc report --reporter=html",
+    "after-30-days": "node src/scripts/productsAfterThirtyDays.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,9 @@
     "mocha": "^4.0.1"
   },
   "dependencies": {
+    "eslint": "^3.17.1",
     "lodash": "^4.17.15",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "stringbuffer": "^1.0.0"
   }
 }
