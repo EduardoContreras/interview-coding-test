@@ -4,8 +4,8 @@ class Product {
     this.sellIn = sellIn;
     this.price = price;
   }
-};
+}
 
 module.exports = {
-  Product
+  Product,
 };

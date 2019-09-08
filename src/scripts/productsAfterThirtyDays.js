@@ -1,7 +1,7 @@
-const fs = require("fs");
-const StringBuffer = require("stringbuffer");
-const {CarInsurance} = require('../class/carInsurance');
-const {Product} = require('../class/product');
+const fs = require('fs');
+const StringBuffer = require('stringbuffer');
+const { CarInsurance } = require('../class/carInsurance');
+const { Product } = require('../class/product');
 
 const productsAtDayZero = [
   new Product('Medium Coverage', 10, 20),
@@ -16,14 +16,14 @@ const productsAtDayZero = [
 ];
 
 const createFile = (fileName, data) => {
-  fs.writeFile(fileName, data, err => {
+  fs.writeFile(fileName, data, (err) => {
     if (err) console.log(err);
     console.log(`${fileName} was created`);
   });
 };
 
 const deleteFile = (fileName, cb) => {
-  fs.unlink(fileName, err => {
+  fs.unlink(fileName, (err) => {
     if (err) console.log(err);
     console.log(`${fileName} was deleted`);
     cb();
@@ -31,30 +31,29 @@ const deleteFile = (fileName, cb) => {
 };
 
 const startCreationFile = (fileName, data) => {
-  fs.access(fileName, fs.constants.F_OK, err => {
+  fs.access(fileName, fs.constants.F_OK, (err) => {
     console.log(`${fileName} ${err ? 'does not exist' : 'exists'}`);
-    if(!err) {
-      deleteFile(fileName, () => {createFile(fileName, data)});
+    if (!err) {
+      deleteFile(fileName, () => { createFile(fileName, data); });
     } else {
       createFile(fileName, data);
     }
   });
 };
 
-const productData = (product, stringBuffer) =>
-  stringBuffer.append('\n').append(`${product.name}, ${product.sellIn}, ${product.price}`);
+const productData = (product, stringBuffer) => stringBuffer.append('\n').append(`${product.name}, ${product.sellIn}, ${product.price}`);
 
 const formatData = (day, stringBuffer, carInsurance) => {
   stringBuffer.append(`-------- day ${day} --------`).append('\n');
   stringBuffer.append('NAME, SELLIN, PRICE');
-  carInsurance.updatePrice().map(product => productData(product, stringBuffer));
+  carInsurance.updatePrice().map((product) => productData(product, stringBuffer));
   stringBuffer.append('\n').append('').append('\n');
 };
 
 const dataToFile = () => {
   const carInsurance = new CarInsurance(productsAtDayZero);
   const stringBuffer = new StringBuffer();
-  [...Array(30).keys()].map(day => formatData(day + 1, stringBuffer, carInsurance));
+  [...Array(30).keys()].map((day) => formatData(day + 1, stringBuffer, carInsurance));
   return stringBuffer;
 };
 

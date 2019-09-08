@@ -1,12 +1,13 @@
-const expect = require('chai').expect;
-const {head} = require('lodash');
+const { expect } = require('chai');
+const { head } = require('lodash');
 
-const {FULL_COVERAGE, MEGA_COVERAGE, SPECIAL_FULL_COVERAGE, SUPER_SALE, OTHER_PRODUCT} = require('../../config/constants');
-const {Product} = require('../../src/class/product');
-const {CarInsurance} = require('../../src/class/carInsurance');
+const {
+  FULL_COVERAGE, MEGA_COVERAGE, SPECIAL_FULL_COVERAGE, SUPER_SALE, OTHER_PRODUCT,
+} = require('../../config/constants');
+const { Product } = require('../../src/class/product');
+const { CarInsurance } = require('../../src/class/carInsurance');
 
-describe("Co Test", () => {
-  
+describe('Co Test', () => {
   describe('When degradate price for other products', () => {
     it('should validate that price is degradate x 2, when sellin is 0', () => {
       const coTest = new CarInsurance([new Product(OTHER_PRODUCT, 0, 2)]);
@@ -32,7 +33,7 @@ describe("Co Test", () => {
       expect(head(products).price).equal(0);
     });
   });
-  
+
   describe('When products is "Full Coverage"', () => {
     it('should validate "Full Coverage" actually increases in price the older it gets.', () => {
       const coTest = new CarInsurance([new Product(FULL_COVERAGE, 0, 1)]);
