@@ -34,7 +34,7 @@
     "mocha": "^6.2.0"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "nyc": "^14.1.1",
     "stringbuffer": "^1.0.0"
   }
